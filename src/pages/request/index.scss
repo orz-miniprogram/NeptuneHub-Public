@@ -1,0 +1,1001 @@
+// src/pages/request/index.scss
+
+// Variables
+$spacing-unit: 8px;
+$text-color: #333;
+$primary-color: #4CAF50;
+$primary-light: #e8f5e9;
+$border-color: #e0e0e0;
+$radius-sm: 8px;
+$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+// Common dimensions
+$input-height: 88rpx;
+$dropdown-arrow-size: 16rpx;
+
+// Mixins
+@mixin input-base {
+  background: #ffffff;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  height: $input-height;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  font-size: 28rpx;
+  
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 2px 6px rgba($primary-color, 0.15);
+    outline: none;
+  }
+
+  &:hover:not(:disabled) {
+    border-color: $primary-color;
+  }
+
+  &:disabled {
+    background: #ffffff;
+    opacity: 1;
+    color: $text-color;
+    cursor: pointer;
+  }
+}
+
+@mixin dropdown-arrow {
+  position: absolute;
+  right: ($input-height - $dropdown-arrow-size * 2) / 2;  // Center in the same width as back button
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: $dropdown-arrow-size solid transparent;
+  border-right: $dropdown-arrow-size solid transparent;
+  border-top: $dropdown-arrow-size solid $text-color;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
+  
+  &.active {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+@mixin dropdown-base {
+  @include input-base;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 ($spacing-unit * 6) 0 ($spacing-unit * 2);
+  cursor: pointer;
+  position: relative;
+
+  &:not(.input-mode)::after {
+    content: '';
+    @include dropdown-arrow;
+  }
+
+  &.active::after {
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+@mixin dropdown-menu-base {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  margin-top: 4px;
+  box-shadow: $shadow-md;
+  z-index: 1001;
+  max-height: 400rpx;
+  overflow-y: auto;
+}
+
+@mixin dropdown-item-base {
+  height: $input-height;
+  padding: 0 $spacing-unit * 2;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  font-size: 28rpx;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: $primary-light;
+  }
+
+  &.active {
+    background-color: $primary-light;
+    color: $primary-color;
+  }
+}
+
+// Common layout classes
+.inline-group {
+  display: flex;
+  gap: $spacing-unit * 2;
+  margin-bottom: $spacing-unit * 3;
+  align-items: center;
+}
+
+.request-page {
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8faf8;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  .page-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 3;
+    width: 100%;
+  }
+
+  .type-dropdown-container {
+    position: relative;
+    z-index: 1000;
+
+    & + .input-field {
+      margin-top: $spacing-unit * 3;
+    }
+  }
+
+  .input-field {
+    @include input-base;
+    margin-bottom: $spacing-unit * 3;
+    padding: 0 $spacing-unit * 2;
+    
+    &::placeholder {
+      color: #a0aec0;
+    }
+  }
+
+  .textarea-field {
+    @include input-base;
+    height: 160rpx;
+    line-height: 1.5;
+    resize: none;
+    margin-bottom: $spacing-unit * 3;
+    padding: $spacing-unit * 2;
+  }
+
+  .lease-rent-section {
+    margin-bottom: $spacing-unit * 3;
+
+    .input-group.price-input {
+      display: flex;
+      align-items: center;
+      gap: $spacing-unit * 3;
+      margin-bottom: $spacing-unit * 3;
+      width: 100%;
+    }
+
+    .duration-input-section {
+      margin-bottom: $spacing-unit * 3;
+      width: 100%;
+
+      .duration-mode-toggle {
+        margin-bottom: $spacing-unit * 3;
+      }
+
+      .date-range-inputs,
+      .period-inputs {
+        margin-bottom: $spacing-unit * 3;
+        
+        .date-input-row {
+          display: flex;
+          align-items: center;
+          gap: $spacing-unit * 3;
+          width: 100%;
+        }
+      }
+    }
+
+    .total-price-display {
+      margin-bottom: $spacing-unit * 3;
+    }
+  }
+
+  .resource-address-section,
+  .errand-address-section {
+    margin-bottom: $spacing-unit * 3;
+
+    .door-delivery-section {
+      margin-bottom: $spacing-unit * 3;
+    }
+
+    .price-display {
+      margin-bottom: $spacing-unit * 3;
+    }
+  }
+
+  .tips-total-group {
+    margin-bottom: $spacing-unit * 3;
+  }
+
+  .selected-media-previews {
+    margin: $spacing-unit * 3 0;
+
+    .section-title {
+      margin-bottom: $spacing-unit * 2;
+    }
+  }
+
+  // Buttons at the bottom
+  Button {
+    margin-bottom: $spacing-unit * 3;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .save-preset-button {
+    margin-bottom: $spacing-unit * 3;
+  }
+
+  .submit-button {
+    margin-bottom: 0; // Last element doesn't need margin
+  }
+
+  .page-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 3;
+    width: 100%;
+
+    .page-title {
+      font-size: 32rpx;
+      font-weight: bold;
+      color: $text-color;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .apply-preset-button {
+      @include input-base;
+      padding: 0 $spacing-unit * 2;
+      background: $primary-color;
+      color: white;
+      font-size: 32rpx;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 0;
+      text-align: center;
+      width: 100%;
+
+      &:disabled {
+        background: #ccc;
+        opacity: 0.6;
+        cursor: not-allowed;
+        color: #666;
+      }
+
+      &:hover:not(:disabled) {
+        background: darken($primary-color, 5%);
+      }
+    }
+  }
+
+  .preset-actions {
+    display: none !important;
+  }
+
+  .action-buttons {
+    display: none !important;
+  }
+
+  // Type dropdown container
+  .type-dropdown-container {
+    position: relative;
+    width: 100%;
+    margin-bottom: $spacing-unit * 2.5;
+    z-index: 1000;
+
+    .type-dropdown-trigger {
+      @include dropdown-base;
+    }
+
+    .type-dropdown-menu {
+      @include dropdown-menu-base;
+
+      .type-dropdown-item {
+        @include dropdown-item-base;
+      }
+    }
+  }
+
+  // Address search container
+  .address-search-container {
+    margin-bottom: $spacing-unit * 3;
+    position: relative;
+    width: 100%;
+    
+    &:hover {
+      z-index: 1000;  // Restore z-index on hover
+    }
+
+    &:has(.address-dropdown-container),
+    &:has(.search-results-container) {
+      z-index: 1000;  // Restore z-index when dropdown is shown
+    }
+
+    .select-input-container,
+    .manual-input-container .input-wrapper {
+      @include dropdown-base;
+      position: relative;
+      margin-bottom: 0;
+
+      .building-search-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: none;
+        font-size: 28rpx;
+        padding: 0 $spacing-unit * 2;
+        z-index: 1;
+
+        &.with-district {
+          padding-right: 120rpx;
+        }
+
+        &::placeholder {
+          color: #a0aec0;
+        }
+      }
+
+      .district-display {
+        position: absolute;
+        right: 88rpx;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24rpx;
+        color: #666;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 4rpx 12rpx;
+        border-radius: 4rpx;
+        z-index: 2;
+
+        &.with-arrow {
+          right: 88rpx;
+        }
+      }
+    }
+
+    .address-dropdown-container,
+    .search-results-container {
+      @include dropdown-menu-base;
+      z-index: 1001;  // Ensure dropdown is above other elements
+    }
+  }
+
+  // Input mode specific styles
+  .manual-input-container {
+    position: relative;
+    
+    .input-wrapper {
+      padding-right: $input-height;
+
+      &::after {
+        display: none;
+      }
+
+      .back-to-select-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: $input-height;
+        height: 100%;
+        z-index: 2;
+        background: transparent;
+        border-left: 1px solid $border-color;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        &::after {
+          content: '';
+          @include dropdown-arrow;
+          transform: translateY(-50%) rotate(-90deg);
+          right: ($spacing-unit * 2);
+        }
+      }
+    }
+  }
+
+  // Dropdown menu styles
+  .address-dropdown-container,
+  .search-results-container {
+    @include dropdown-menu-base;
+    z-index: 1001;  // Ensure dropdown is above all other elements
+
+    .address-dropdown {
+      .saved-address-item {
+        @include dropdown-item-base;
+        height: auto;
+        min-height: $input-height;
+        padding: $spacing-unit * 1.5 $spacing-unit * 2;
+
+        &.default-address {
+          background-color: $primary-light;
+        }
+
+        .address-details {
+          display: flex;
+          flex-direction: column;
+          gap: 4rpx;
+
+          .address-name {
+            font-size: 28rpx;
+            color: $text-color;
+            display: flex;
+            align-items: center;
+            gap: 8rpx;
+
+            .default-tag {
+              font-size: 24rpx;
+              color: $primary-color;
+              background: rgba($primary-color, 0.1);
+              padding: 2rpx 8rpx;
+              border-radius: 4rpx;
+            }
+          }
+
+          .unit-details {
+            font-size: 24rpx;
+            color: #666;
+          }
+
+          .district-name {
+            font-size: 24rpx;
+            color: #666;
+          }
+        }
+      }
+
+      .input-other-option {
+        @include dropdown-item-base;
+        text-align: center;
+        color: $primary-color;
+      }
+    }
+
+    .building-search-results {
+      .building-result-item {
+        @include dropdown-item-base;
+        justify-content: space-between;
+
+        &.current-selection {
+          background-color: $primary-light;
+          
+          .current-tag {
+            font-size: 24rpx;
+            color: $primary-color;
+            background: rgba($primary-color, 0.1);
+            padding: 4rpx 8rpx;
+            border-radius: 4rpx;
+            margin-left: 8rpx;
+          }
+        }
+
+        .building-name {
+          font-size: 28rpx;
+          color: $text-color;
+          display: flex;
+          align-items: center;
+        }
+
+        .district-name {
+          font-size: 24rpx;
+          color: #666;
+        }
+      }
+
+      .no-results {
+        @include dropdown-item-base;
+        justify-content: center;
+        color: #999;
+      }
+    }
+  }
+
+  // Door delivery section
+  .door-delivery-section {
+    margin-bottom: $spacing-unit * 2;
+    padding: $spacing-unit * 2;
+    background: #fff;
+    border-radius: $radius-sm;
+    border: 1px solid $border-color;
+
+    .door-delivery-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .switch-group {
+        display: flex;
+        align-items: center;
+        gap: $spacing-unit;
+
+        .switch-label {
+          font-size: 28rpx;
+          color: $text-color;
+        }
+      }
+    }
+
+    .door-details-row {
+      display: flex;
+      gap: $spacing-unit;
+      margin-top: $spacing-unit;
+
+      .unit-details {
+        @include input-base;
+        flex: 1 0 0%;  // Force equal width
+        min-width: 0;  // Prevent content from expanding width
+        padding: 0 $spacing-unit * 2;
+      }
+
+      .time-selector-container {
+        position: relative;
+        flex: 1 0 0%;  // Force equal width
+        min-width: 0;  // Prevent content from expanding width
+
+        .time-selector {
+          @include dropdown-base;
+          padding: 0 $spacing-unit * 2;
+        }
+
+        .time-dropdown {
+          @include dropdown-menu-base;
+
+          .time-option {
+            @include dropdown-item-base;
+
+            &.selected {
+              background-color: $primary-light;
+              color: $primary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Price display
+  .price-display,
+  .total-price-display {
+    @include input-base;
+    height: $input-height;
+    margin-bottom: $spacing-unit * 3;
+    padding: $spacing-unit * 2;
+    background: $primary-light;
+    border: 1px solid $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .price-label,
+    .total-price-label {
+      font-size: 28rpx;
+      color: $text-color;
+    }
+
+    .price-value,
+    .total-price-value {
+      font-size: 32rpx;
+      color: $primary-color;
+      font-weight: 600;
+    }
+  }
+
+  // Tips and total price section
+  .tips-total-group {
+    display: flex;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 3;
+    align-items: center;
+    height: $input-height;
+
+    .tips-input {
+      @include input-base;
+      flex: 1 0 0%;
+      min-width: 0;
+      height: $input-height;
+      margin: 0;
+      padding: 0 $spacing-unit * 2;
+    }
+
+    .total-price-display {
+      @include input-base;
+      flex: 1 0 0%;
+      min-width: 0;
+      height: $input-height;
+      margin: 0;
+      padding: 0 $spacing-unit * 2;
+      display: flex;
+      align-items: center;
+      background: $primary-light;
+      border: 1px solid $primary-color;
+    }
+  }
+
+  // Price input field specific padding
+  .input-field.price-input {
+    padding: 0 $spacing-unit * 2;
+  }
+
+  // Save preset button at bottom
+  .save-preset-button {
+    @include input-base;
+    width: 100%;
+    background: $primary-color;
+    color: white;
+    font-size: 32rpx;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    margin-top: $spacing-unit * 3;
+
+    &:disabled {
+      background: #ccc;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background: darken($primary-color, 5%);
+    }
+  }
+
+  // Submit button
+  .submit-button {
+    @include input-base;
+    background: $primary-color;
+    color: #fff;
+    font-size: 32rpx;
+    font-weight: 600;
+    margin-top: $spacing-unit * 3;
+    cursor: pointer;
+
+    &:disabled {
+      background: #ccc;
+      border-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background: darken($primary-color, 5%);
+    }
+  }
+
+  // Price input group
+  .input-group.price-input {
+    display: flex;
+    gap: $spacing-unit * 2;
+    margin-bottom: $spacing-unit * 3;
+    align-items: center;
+    position: relative;
+
+    .input-field {
+      flex: 1;
+      margin-bottom: 0;
+      padding: 0 $spacing-unit * 2;
+    }
+
+    .unit-selector {
+      @include dropdown-base;
+      flex: 1;
+      margin-bottom: 0;
+      position: relative;
+
+      .dropdown-arrow {
+        display: none;
+      }
+
+      &::after {
+        content: '';
+        @include dropdown-arrow;
+      }
+
+      &.active::after {
+        transform: translateY(-50%) rotate(180deg);
+      }
+    }
+
+    .unit-dropdown {
+      @include dropdown-menu-base;
+      position: absolute;
+      top: 100%;
+      left: 50%;  // Center align with the unit selector
+      width: 100%; // Match parent width
+      transform: translateX(-50%);
+      margin-top: 4px;
+      z-index: 1001;
+
+      .unit-option {
+        @include dropdown-item-base;
+        text-align: center;
+        padding: 0 $spacing-unit * 2;
+      }
+    }
+  }
+
+  // Media upload section
+  .selected-media-previews {
+    margin: $spacing-unit * 2 0;
+
+    .section-title {
+      font-size: 28rpx;
+      color: $text-color;
+      margin-bottom: $spacing-unit;
+    }
+
+    .previews-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160rpx, 1fr));
+      gap: $spacing-unit;
+
+      .media-preview-item {
+        position: relative;
+        aspect-ratio: 1;
+        border-radius: $radius-sm;
+        overflow: hidden;
+        border: 1px solid $border-color;
+
+        .media-thumbnail {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .video-placeholder {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #f5f5f5;
+          color: #666;
+          font-size: 24rpx;
+        }
+
+        .remove-media-button {
+          position: absolute;
+          top: 4rpx;
+          right: 4rpx;
+          width: 40rpx;
+          height: 40rpx;
+          background: rgba(0, 0, 0, 0.5);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+
+          .remove-icon {
+            color: #fff;
+            font-size: 24rpx;
+          }
+        }
+      }
+    }
+  }
+
+  // Date input groups
+  .date-input-row {
+    display: flex;
+    gap: $spacing-unit * 3; // Increased from *2 to *3
+    margin-bottom: $spacing-unit * 3;
+    align-items: center;
+    width: 100%;
+
+    .date-input,
+    .period-input {
+      flex: 1;
+      position: relative;
+
+      .input-field {
+        width: 100%;
+        height: 80rpx;
+        margin: 0;
+        background: #fff;
+        border: 2rpx solid $border-color;
+        border-radius: $radius-sm;
+        font-size: 28rpx;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  // Duration input section
+  .duration-input-section {
+    margin-bottom: $spacing-unit * 3;
+
+    .duration-mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: $spacing-unit * 2;
+      margin-bottom: $spacing-unit * 2;
+
+      .toggle-label {
+        font-size: 28rpx;
+        color: $text-color;
+      }
+    }
+  }
+
+  // Standardize other button text styles
+  .save-preset-button,
+  .media-upload-button,
+  .upload-media-button {  // Add all possible button selectors
+    font-size: 32rpx;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  // Keep existing background/colors but standardize text
+  .upload-media-section button {
+    font-size: 32rpx;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  // Standardize button text styles
+  .save-preset-button,
+  Button {  // Target Taro Button component
+    font-size: 32rpx;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  // Specific style for media upload button
+  Button[onClick*="handleMediaUpload"] {
+    font-size: 32rpx !important;  // Override any default Button styles
+    font-weight: 600 !important;
+    text-align: center;
+  }
+
+  .lease-rent-section {
+    margin-bottom: $spacing-unit * 2;
+
+    // Price input group
+    .input-group.price-input {
+      display: flex;
+      align-items: center;
+      gap: $spacing-unit * 2;
+      margin-bottom: $spacing-unit * 2;
+      width: 100%;
+
+      .input-field {
+        flex: 1;
+        margin-bottom: 0;
+        height: 80rpx;
+      }
+
+      .unit-selector {
+        flex: 1;
+        height: 80rpx;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 $spacing-unit * 2;
+        background: #fff;
+        border: 2rpx solid $border-color;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        margin-bottom: 0;
+
+        .dropdown-arrow {
+          font-size: 20rpx;
+          color: $text-color;
+        }
+      }
+    }
+
+    // Duration input section
+    .duration-input-section {
+      margin-bottom: $spacing-unit * 2;
+      width: 100%;
+
+      .duration-mode-toggle {
+        display: flex;
+        align-items: center;
+        gap: $spacing-unit * 2;
+        margin-bottom: $spacing-unit * 2;
+
+        .toggle-label {
+          font-size: 28rpx;
+          color: $text-color;
+        }
+      }
+
+      .date-range-inputs,
+      .period-inputs {
+        width: 100%;
+
+        .date-input-row {
+          display: flex;
+          align-items: center;
+          gap: $spacing-unit * 2;
+          margin-bottom: $spacing-unit * 2;
+          width: 100%;
+
+          .date-input,
+          .period-input {
+            flex: 1;
+            position: relative;
+
+            .input-field {
+              width: 100%;
+              height: 80rpx;
+              margin: 0;
+              background: #fff;
+              border: 2rpx solid $border-color;
+              border-radius: $radius-sm;
+              font-size: 28rpx;
+              box-sizing: border-box;
+            }
+          }
+
+          .date-input .input-field {
+            padding: 0 80rpx 0 $spacing-unit * 2;
+          }
+
+          .period-input .input-field {
+            padding: 0 $spacing-unit * 2;
+          }
+
+          .date-picker-icon {
+            position: absolute;
+            right: $spacing-unit * 2;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 32rpx;
+            color: $text-color;
+            cursor: pointer;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+
+  // Standardize all input placeholders
+  input::placeholder,
+  textarea::placeholder {
+    color: #a0aec0;
+  }
+
+  // Ensure consistent padding for time selector
+  .time-selector-container {
+    .time-selector {
+      padding: 0 $spacing-unit * 2;
+    }
+  }
+}

@@ -1,0 +1,110 @@
+// src/pages/signIn/index.scss
+.sign-in-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px; // Adjust padding as needed
+
+  .page-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .input-container {
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee; // Example styling
+  }
+
+  .input-field {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none; // Remove default input border
+    outline: none; // Remove outline on focus
+  }
+  
+  .input-container {
+  /* Common styles for input containers */
+  margin-bottom: 15px;
+
+  // If you use absolute positioning for the toggle button, make the container relative:
+  position: relative; // <<-- Ensure this is set to make it a positioning context
+}
+
+.input-field {
+  /* Common styles for input fields */
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+  // Add padding on the right to make space for the icon
+  // Adjust the value (e.g., 40px) based on the size of your icon + desired spacing
+  padding-right: 40px; // <<-- Make space for the icon inside the input
+}
+
+/* Specific styles for the password input container if needed, but relative positioning often suffices */
+.password-input-container {
+  // Ensure this container is also relative if the input-container isn't the direct parent you want to position against
+  // If input-container is the direct parent of both input and toggle, you might not need this line
+  // position: relative; // <<-- Optional, depending on your HTML structure and desired positioning parent
+}
+
+
+/* Style for the password toggle button/icon */
+.password-toggle-button {
+  position: absolute; // <<-- Position the toggle absolutely
+  top: 50%; // <<-- Vertically center it relative to the parent container
+  // Adjust 'right' to control how far from the right edge it sits
+  right: 10px; // <<-- Adjust this value for horizontal positioning
+  transform: translateY(-50%); // <<-- Precisely center it vertically
+  z-index: 1; // Ensure it's above the input field
+  padding: 5px; // Add some padding around the icon area for easier clicking
+  // cursor: pointer; // Indicates clickable area (might not visually show in mini-program devtools)
+
+  // Add styles for your icon element (Text or Image) if needed
+  // For Image:
+  // .password-toggle-icon { width: 20px; height: 20px; display: block; } // Set size
+}
+
+  .error-message {
+    color: #e54d42; // Red color for errors
+    font-size: 14px;
+    margin-top: -10px; // Adjust spacing
+    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .login-button {
+    width: 100%;
+    background-color: #007bff; // Example button color
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px; // Space above button
+  }
+
+  .login-button[disabled] {
+    background-color: #ccc; // Style for disabled state
+  }
+
+  .links {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    width: 100%; // Or adjust width
+  }
+
+  .link-text {
+    color: #007bff; // Link color
+    text-decoration: underline; // Underline links
+    margin-left: 5px; // Space between text and link
+  }
+}

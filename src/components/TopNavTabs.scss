@@ -1,0 +1,38 @@
+// frontend/src/components/TopNavTabs/TopNavTabs.scss
+
+.top-nav-tabs {
+  width: 100%; // Take full width
+  height: 6vw; // Fixed height for the tab bar (adjust as needed)
+  background-color: #f8f8f8; // Light background
+  border-bottom: 1px solid #eee; // Subtle bottom border
+  white-space: nowrap; // Prevent tabs from wrapping
+  // Removed overflow-x: auto; as ScrollView handles it
+  // Removed background-color and border-bottom from the parent View in JSX
+
+  .tabs-container {
+    width: 100%; // Ensure ScrollView takes full width 
+    white-space: nowrap; // Ensure tabs stay in one line for horizontal scrolling
+     // Use flexbox for layout inside ScrollView
+    display: flex;
+    flex-direction: row;
+  }
+
+  .tab-item {
+    display: inline-flex; // Use inline-flex to allow flex properties and keep it in one line
+    align-items: center; // Vertically center text
+    justify-content: center; // Horizontally center text (optional, depends on desired layout)
+    padding: 0 2vw; // Add horizontal padding around text
+	margin: 0 2vw;
+    height: 100%; // Take full height of the container
+    font-size: 4vw; // Adjust font size (start here, can increase if needed)
+    color: #666; // Default text color
+    border-bottom: 2px solid transparent; // Transparent border by default
+    transition: color 0.3s ease, border-bottom-color 0.3s ease; // Smooth transition
+  }
+
+  .tab-item.active {
+    color: green; 
+    border-bottom: 2px solid green; // Active tab indicator color
+    font-weight: bold; // Make active tab text bold
+  }
+}

@@ -1,0 +1,45 @@
+// src/pages/myCoupons/index.scss
+
+.my-coupons-page {
+  // ... (existing styles)
+
+  .coupon-list {
+    // ... (existing styles)
+
+    .coupon-item {
+      // ... (existing styles)
+
+      .coupon-details {
+        // ... (existing styles)
+        flex-grow: 1; // Ensure details take space
+         margin-right: 10px; // Add some space before the button column
+      }
+
+       .coupon-action {
+           flex-shrink: 0; // Prevent shrinking
+           display: flex;
+           align-items: center; // Vertically center the button
+           padding-right: 10px; // Add some padding on the right
+       }
+
+      .use-now-button {
+        // Style for the "Use Now" button
+        background-color: #f90; // Example button color (orange)
+        color: white;
+        font-size: 12px; // Smaller font size
+        padding: 5px 10px; // Adjust padding
+        border-radius: 4px; // Smaller border radius
+        line-height: 1.5; // Adjust line height if needed
+        height: auto; // Allow height to adjust to content
+      }
+
+      &.expired {
+          // ... (existing expired styles)
+          .coupon-action {
+              opacity: 0.5; // Reduce opacity of the action section when expired
+               pointer-events: none; // Disable clicks on the action section
+          }
+      }
+    }
+  }
+}

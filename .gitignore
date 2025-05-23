@@ -1,0 +1,53 @@
+# Build and Distribution artifacts
+dist/
+deploy_versions/
+
+# Temporary files and caches
+.temp/
+.rn_temp/
+.swc/       # SWC compiler cache
+
+# Node.js dependencies
+node_modules/
+
+# macOS specific files
+.DS_Store
+
+# Local configuration files (use with caution, ensure no essential config is ignored)
+*.local
+
+# --- Project Specific Ignores ---
+
+# Old FastAPI folder at the root (if it's not part of the tracked project)
+/fastapi/
+
+# Visual Studio related files (often created at the root or in solution folders)
+# These should absolutely NOT be committed to Git
+.vs/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*~          # Temporary files created by some editors
+
+# Python virtual environments (common names and the user's specific potential location)
+venv/
+.venv/
+
+# Environment variables file (often contains secrets or local settings)
+.env
+apiclient_cert.p12
+apiclient_cert.pem
+apiclient_key.pem
+
+# --- Add more as needed based on your project ---
+# Logs
+# *.log
+
+# Database files (if not using Docker volumes)
+# *.sqlite
+
+# Docker build context excludes (usually handled by .dockerignore, but can list here too)
+# Dockerfile.rej
+# Dockerfile.orig

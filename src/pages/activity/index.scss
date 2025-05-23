@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+page {
+  font-family: "Microsoft YaHei", sans-serif;
+  background-color: #f5f5f5; /* Fallback background color */
+  overflow: hidden;
+  height: 100vh;
+}
+
+.container {
+  max-width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20rpx;
+  position: relative; /* Ensure other elements are above the background */
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place behind other content */
+}
+
+.selection-panel {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15rpx;
+  margin-bottom: 30rpx;
+}
+
+.selection-group {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.selector {
+  padding: 8rpx 12rpx;
+  border-radius: 4rpx;
+  border: 1rpx solid #ddd;
+  font-size: 14rpx;
+  min-width: 120rpx;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.food-title {
+  font-size: 48rpx;
+  text-align: center;
+  margin-bottom: 20rpx;
+  transition: all 0.3s ease-in-out;
+  color: #333;
+}
+
+.food-info {
+  text-align: center;
+  margin-bottom: 30rpx;
+  font-size: 18rpx;
+  color: #666;
+  min-height: 1em;
+}
+
+.toggle-btn {
+  padding: 12rpx 30rpx;
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 30rpx;
+  font-size: 18rpx;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 8rpx #0000001a;
+}
+
+.toggle-btn:hover {
+  background-color: #ff5252;
+  transform: translateY(-2rpx);
+  box-shadow: 0 6rpx 12rpx #00000026;
+}
+
+.toggle-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2rpx 4rpx #0000001a;
+}
+
+.food-items-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.food-item {
+  position: absolute;
+  pointer-events: none;
+  animation: fadeInOut 1.5s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (width <= 768px) {
+  .selection-panel {
+    flex-direction: column;
+    align-items: center;
+    gap: 10rpx;
+  }
+
+  .food-title {
+    font-size: 36rpx;
+  }
+
+  .toggle-btn {
+    padding: 10rpx 24rpx;
+    font-size: 16rpx;
+  }
+}
+
+@media (width <= 480px) {
+  .food-title {
+    font-size: 28rpx;
+  }
+
+  .food-info {
+    font-size: 14rpx;
+  }
+
+  .toggle-btn {
+    padding: 8rpx 20rpx;
+    font-size: 14rpx;
+  }
+}

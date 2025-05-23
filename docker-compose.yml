@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  node-backend:
+    image: ccr.ccs.tencentyun.com/prz-miniprogram/neptune-node-backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.node
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production
+    depends_on:
+      - redis
+    networks:
+      - backend-network
+
+  python-backend:
+    image: ccr.ccs.tencentyun.com/orz-miniprogram/neptune-python-backend:latest
+    build:
+      context: ./backend/python
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.production
+    depends_on:
+      - redis
+    networks:
+      - backend-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  redis-data: 

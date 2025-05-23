@@ -1,0 +1,21 @@
+.tab-bar-container {
+  display: flex;
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  background-color: #f8f8f8; // Light background
+  border-top: 1px solid #eee; // Subtle top border
+}
+
+.tab-bar-item {
+  flex: 1 0 20%; // Evenly distribute 5 items
+  text-align: center;
+  padding: 12px 0; // Adjust padding as needed
+  font-size: 72px; // Increased font size
+  color: #333; // Darker text color
+}
+
+.tab-bar-item.active {
+  color: #007bff; // Blue color for active tab
+  font-weight: 600; // Bold font for active tab
+}

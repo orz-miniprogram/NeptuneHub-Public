@@ -1,0 +1,9 @@
+FROM python:3.10-slim-bookworm AS nlp
+
+# Install build tools required for blis and wget
+RUN apt-get update && apt-get install -y --no-install-recommends build-essential wget && rm -rf /var/lib/apt/lists/*
+
+RUN wget https://pypi.tuna.tsinghua.edu.cn/packages/5b/31/5c07c72a2d6dbead5c0e4ab4225c88fe582f47246ef9cb18429304a8adab/tensorflow_cpu-2.19.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl -O tensorflow_cpu-2.19.0.whl  
+
+COPY requirements-nlp.txt ./
+RUN pip install --no-cache-dir -r requirements-nlp.txt -f https://download.pytorch.org/whl/cpu -i https://pypi.tuna.tsinghua.edu.cn/simple --timeout 600 --retries 5

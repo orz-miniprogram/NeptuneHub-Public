@@ -1,0 +1,15 @@
+{
+  "miniprogramRoot": "./dist",
+  "projectname": "neptune-mini-program",
+  "description": "  Turning stagnant resources into movement—by students, for students. No big corps, just us, shaping our own ecosystem.",
+  "appid": "wx9efb9ccd4c48f9ff",
+  "setting": {
+    "urlCheck": true,
+    "es6": false,
+    "enhance": false,
+    "compileHotReLoad": false,
+    "postcss": false,
+    "minified": false
+  },
+  "compileType": "miniprogram"
+}
