@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  node-backend:
+    image: ccr.ccs.tencentyun.com/orz-miniprogram/neptune-node-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.production
+    depends_on:
+      - redis
+    networks:
+      - backend-network
+
+  python-worker:
+    image: ccr.ccs.tencentyun.com/orz-miniprogram/neptune-python-worker:latest
+    build:
+      context: ./python
+      dockerfile: Dockerfile.worker
+    env_file:
+      - .env.production
+    volumes:
+      - nlp-model-cache:/app/nlp/model_cache
+    depends_on:
+      - redis
+    networks:
+      - backend-network
+
+  python-scheduler:
+    image: ccr.ccs.tencentyun.com/orz-miniprogram/neptune-python-scheduler:latest
+    build:
+      context: ./python
+      dockerfile: Dockerfile.scheduler
+    env_file:
+      - .env.production
+    volumes:
+      - nlp-model-cache:/app/nlp/model_cache
+    depends_on:
+      - redis
+    networks:
+      - backend-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  nlp-model-cache:  # Shared volume for NLP model cache 

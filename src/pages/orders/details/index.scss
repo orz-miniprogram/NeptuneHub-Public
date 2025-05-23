@@ -1,0 +1,77 @@
+// src/pages/orderDetail/index.scss
+
+.order-detail-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .content-container {
+      flex: 1;
+      padding: 20px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .error-message {
+      color: #e54d42;
+      font-size: 14px;
+      margin: 10px 20px;
+      text-align: center;
+  }
+
+   .section {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+
+      .section-title {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 5px;
+      }
+  }
+
+   .order-details-info {
+       font-size: 15px;
+       color: #333;
+
+       text { display: block; margin-bottom: 8px; } // Spacing between lines
+
+       .discounted-amount {
+           color: #28a745; // Green for final discounted amount
+           font-weight: bold;
+       }
+
+        .applied-coupon-details {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #eee; // Separator
+            font-size: 14px;
+
+            .discount-applied {
+                 color: #28a745; // Green for discount value
+                 font-weight: bold;
+                 margin-left: 5px;
+            }
+        }
+
+        .payment-info {
+            margin-top: 10px;
+            padding-top: 10px;
+             border-top: 1px dashed #eee;
+             font-size: 14px;
+             color: #555;
+        }
+   }
+
+   // Add styling for embedded resource details if you display them here
+   // e.g., .resource-item-details { ... }
+}

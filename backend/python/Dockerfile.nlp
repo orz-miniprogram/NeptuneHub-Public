@@ -1,0 +1,32 @@
+FROM python:3.10-slim-bookworm AS nlp
+
+# Set environment variables to force CPU only and disable GPU
+ENV CUDA_VISIBLE_DEVICES="-1" \
+    TF_CPP_MIN_LOG_LEVEL="3" \
+    TOKENIZERS_PARALLELISM="false" \
+    NVIDIA_VISIBLE_DEVICES="void" \
+    TF_FORCE_GPU_ALLOW_GROWTH="false" \
+    TF_GPU_ALLOCATOR="null"
+
+# Switch to Chinese mirrors for apt and clean up all other sources
+RUN rm -rf /etc/apt/sources.list.d/* && \
+    echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm main contrib non-free non-free-firmware" > /etc/apt/sources.list && \
+    echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bookworm-backports main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
+    cat /etc/apt/sources.list
+
+# Install build tools required for blis and wget
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends build-essential wget && \
+    rm -rf /var/lib/apt/lists/*
+
+# Configure pip to use Chinese mirror
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+# RUN wget https://pypi.tuna.tsinghua.edu.cn/packages/5b/31/5c07c72a2d6dbead5c0e4ab4225c88fe582f47246ef9cb18429304a8adab/tensorflow_cpu-2.19.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl -O tensorflow_cpu-2.19.0.whl  
+
+COPY requirements-nlp.txt ./
+RUN pip install --no-cache-dir -r requirements-nlp.txt -f https://download.pytorch.org/whl/cpu -i https://pypi.tuna.tsinghua.edu.cn/simple --timeout 600 --retries 5

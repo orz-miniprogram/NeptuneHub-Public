@@ -1,0 +1,9 @@
+spacy==3.8.5 # --hash=sha256:04f12e3608ec3fe4797e5b964bfb09ca569a343970bd20140ed6bae5beda8e80
+scikit-learn==1.6.1 # --hash=sha256:775da975a471c4f6f467725dff0ced5c7ac7bda5e9316b260225b48475279a1b
+torch==2.7.0 # --hash=sha256:0b9960183b6e5b71239a3e6c883d8852c304e691c0b2955f7045e8a6d05b9183
+# tensorflow-cpu==2.19.0 # --hash=sha256:cee5a939ea29a3cef229baf696e58fcb03537063a217764feaaa409addf1f251
+sentence-transformers==4.1.0 # --hash=sha256:382a7f6be1244a100ce40495fb7523dbe8d71b3c10b299f81e6b735092b3b8ca
+numpy==1.26.0 # 2.2.5 hash: --hash=sha256:7451f92eddf8503c9b8aa4fe6aa7e87fd51a29c2cfc5f7dbd72efde6c65acf57
+# murmurhash==1.0.12 --hash=sha256:2efef9f9aad98ec915a830f0c53d14ce6807ccc6e14fd2966565ef0b71cfa086
+spacy-transformers
+# tf-keras

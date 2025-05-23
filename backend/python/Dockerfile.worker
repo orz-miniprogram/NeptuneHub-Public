@@ -1,0 +1,42 @@
+FROM ccr.ccs.tencentyun.com/orz-miniprogram/neptune-python-base:latest
+
+WORKDIR /app
+
+# Set PYTHONPATH to include the parent directory
+ENV PYTHONPATH=/app
+
+# Create directories and files first
+RUN mkdir -p /app/worker /app/nlp/model_cache && \
+    touch /app/__init__.py /app/worker/__init__.py /app/nlp/__init__.py && \
+    chmod -R 777 /app/nlp/model_cache
+
+# Copy NLP module first for model download
+COPY nlp ./nlp
+
+# Try to download models during build
+RUN python -c "from nlp.download_models import download_models; download_models()" || \
+    (echo "Model download failed during build, will retry at runtime" && exit 0)
+
+# Copy the rest of the application
+COPY . /app
+
+# Create entrypoint script
+RUN echo '#!/bin/bash' > /app/entrypoint.sh && \
+    echo '' >> /app/entrypoint.sh && \
+    echo '# Ensure model cache directory exists and has correct permissions' >> /app/entrypoint.sh && \
+    echo 'mkdir -p /app/nlp/model_cache' >> /app/entrypoint.sh && \
+    echo 'chmod -R 777 /app/nlp/model_cache' >> /app/entrypoint.sh && \
+    echo '' >> /app/entrypoint.sh && \
+    echo '# Always verify and download models at startup' >> /app/entrypoint.sh && \
+    echo 'echo "Verifying model cache..."' >> /app/entrypoint.sh && \
+    echo 'python -c "from nlp.download_models import download_models; download_models()"' >> /app/entrypoint.sh && \
+    echo 'if [ $? -ne 0 ]; then' >> /app/entrypoint.sh && \
+    echo '    echo "Model verification/download failed"' >> /app/entrypoint.sh && \
+    echo '    exit 1' >> /app/entrypoint.sh && \
+    echo 'fi' >> /app/entrypoint.sh && \
+    echo '' >> /app/entrypoint.sh && \
+    echo '# Start the worker' >> /app/entrypoint.sh && \
+    echo 'exec python /app/worker_entry.py' >> /app/entrypoint.sh && \
+    chmod +x /app/entrypoint.sh
+
+CMD ["/app/entrypoint.sh"]

@@ -1,0 +1,147 @@
+// frontend/src/components/OrderComponent/OrderComponent.scss
+
+.order-component {
+  background-color: #fff;
+  margin: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+  display: flex;
+  flex-direction: row;
+  position: relative; // Needed if using absolute positioning for anything, but let's avoid it
+}
+
+.order-content-sections {
+    display: flex;
+	width: 75%;
+    flex-direction: column; // Stack header, description, and actions vertically
+    flex-grow: 0; // Don't grow beyond 70%
+    flex-shrink: 0; // Don't shrink below 70% (be strict with width)
+    margin-right: 20rpx; // Space between the content block and the media block
+}
+
+.order-header-row {
+  display: flex; // Arrange left and right sections side by side
+  flex-direction: row;
+  justify-content: space-between; // Push left and right sections to opposite ends
+  align-items: flex-start; // Align items to the top
+  margin-bottom: 10px; // Space below the header row
+}
+
+.order-info-left {
+  display: flex;
+  flex-direction: column; // Stack title and payment vertically
+  flex-grow: 1; // Allow left section to take available space
+  margin-right: 15px; // Space between left info and right info/media
+}
+
+.order-title {
+  font-size: 4vw;
+  font-weight: bold;
+  margin-bottom: 4px; // Smaller space below title
+  color: #333;
+  word-break: break-word;
+}
+
+.order-payment {
+  font-size: 3vw;
+  color: green;
+  font-weight: bold;
+}
+
+.order-info-right {
+  display: flex; // Arrange status and media side by side
+  flex-direction: row;
+  align-items: flex-start; // Align status and media to the top
+  gap: 8px; // Space between status text and media thumbnail
+  flex-shrink: 0; // Prevent the right section from shrinking
+}
+
+.order-status {
+  font-size: 3vw;
+  color: #007aff; // Example color
+  font-weight: bold;
+
+  // If status text is long, consider wrapping or adding max-width
+}
+
+.media-square-container {
+    width: 25%; // Your desired width relative to its parent (.order-right-side-group or main .order-component depending on your structure)
+    padding-top: 25%; // Set padding-top equal to the width percentage to make it square (30% of parent's width)
+    position: relative; // Needed for absolute positioning of the image inside
+    // Ensure margin-bottom is on this container if you want space below the square
+    border-radius: 8rpx; // Apply border radius to the container
+    overflow: hidden; // Hide parts of the image that might extend beyond the rounded corners
+    flex-shrink: 0; // Prevent the container from shrinking below 30%
+	flex-grow: 0; // Don't grow beyond 30% (be strict with width)
+}
+
+.order-media {
+	position: absolute; // Position the image absolutely within the container
+    top: 0; // Pin to the top
+    left: 0; // Pin to the left
+    width: 100%; // Make the image fill the width of the container
+    height: 100%; // Make the image fill the height of the container
+    object-fit: cover; // Ensure the image covers the container while maintaining aspect ratio (same as aspectFill)
+    // Remove border-radius from here if applied to the container
+}
+
+// Optional: Styling for the description section if you added it to JSX
+.order-description-section {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+// Action buttons section
+.order-actions {
+  display: flex;
+  flex-direction: row; // Arrange buttons inline
+  justify-content: flex-end; // Push buttons to the right
+  align-items: right; // Vertically align buttons and static text
+  gap: 8px; // Space between buttons or static text
+  margin-top: 10px; // Space above the action buttons section
+}
+
+.action-button {
+    font-size: 3vw; // Increased font size slightly
+    padding: 6rpx 14rpx; // Increased padding (top/bottom, left/right)
+	margin: 6rpx;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+    color: #333;
+    min-width: 70px; // Increased minimum width
+    text-align: center;
+    line-height: 1.2;
+
+    &.accept-button {
+        background-color: #28a745; color: white; border-color: #28a745;
+    }
+
+    &.cancel-button {
+        background-color: #dc3545; color: white; border-color: #dc3545;
+    }
+
+    &.edit-button { // Style for Edit button
+        background-color: #007bff; color: white; border-color: #007bff;
+    }
+
+    &.pay-button { // Example style for a Pay button
+         background-color: #ffc107; color: #333; border-color: #ffc107;
+    }
+
+     &.prompt-errand-button { // Example style
+         background-color: #17a2b8; color: white; border-color: #17a2b8;
+     }
+}
+
+// Styling for static status text when buttons are not shown
+.order-actions .static-status-text {
+    font-size: 3vw;
+    color: #555;
+     align-self: center; // Vertically align with potential buttons
+     // You might want to add specific colors for different statuses
+     &.status-canceled { color: #dc3545; } // Example: red for canceled
+     &.status-completed { color: #28a745; } // Example: green for completed
+     // Add more status-specific text colors as needed
+}

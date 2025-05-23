@@ -1,0 +1,129 @@
+// src/pages/orderConfirmation/index.scss
+
+.order-confirmation-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; // Take full viewport height
+
+  .content-container {
+      flex: 1; // Allow content to scroll
+      padding: 20px;
+  }
+
+
+  .page-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .error-message {
+      color: #e54d42;
+      font-size: 14px;
+      margin: 10px 20px;
+      text-align: center;
+  }
+
+
+  .section {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgb(0 0 0 / 5%);
+
+      .section-title {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #eee;
+          padding-bottom: 5px;
+      }
+  }
+
+  .order-summary-details {
+      // Styles for displaying order item details - match your OrderComponent look if possible
+      font-size: 14px;
+      color: #555;
+
+      // Add spacing and layout for order details
+       text { display: block; margin-bottom: 5px; }
+  }
+
+  .coupon-input-section {
+      display: flex;
+      align-items: center;
+
+      .coupon-input {
+          flex-grow: 1;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          padding: 8px;
+          margin-right: 10px;
+          font-size: 14px;
+      }
+
+      .apply-coupon-button {
+          flex-shrink: 0;
+      }
+  }
+
+  .applied-coupon {
+      font-size: 15px;
+       color: #333;
+
+       .discount-applied {
+           color: #28a745; // Green for discount
+           font-weight: bold;
+           margin-left: 10px;
+       }
+  }
+
+   .coupon-error-message {
+        color: #e54d42;
+        font-size: 12px;
+        margin-top: 5px;
+   }
+
+
+  .payment-method-item {
+      border: 1px solid #eee;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      cursor: pointer; // Indicate clickable
+      &.selected {
+          border-color: #007bff; // Highlight selected method
+          background-color: #e9f5ff;
+          font-weight: bold;
+      }
+  }
+
+
+  .final-amount-section {
+      text-align: right; // Align total to the right
+      margin-top: 20px; // Space above pay button
+
+      .final-amount {
+          font-size: 20px;
+          font-weight: bold;
+          color: #e54d42; // Red color for final amount
+          margin-bottom: 15px;
+          display: block; // Ensure total is above the button
+      }
+
+      .pay-button {
+          background-color: #28a745; // Green pay button
+          color: white;
+          font-size: 18px;
+          padding: 12px;
+          border-radius: 5px;
+          width: 100%; // Make button full width
+      }
+
+       .pay-button[disabled] {
+           background-color: #ccc;
+       }
+  }
+}
